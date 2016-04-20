@@ -1,0 +1,27 @@
+{
+  "generator-jhipster": {
+    "jhipsterVersion": "3.1.0",
+    "baseName": "MetaRec",
+    "packageName": "com.magnetic.metarec",
+    "packageFolder": "com/magnetic/metarec",
+    "serverPort": "8080",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "oracle",
+    "searchEngine": "no",
+    "buildTool": "gradle",
+    "enableSocialSignIn": false,
+    "rememberMeKey": "a028b14621cbfa458d38da8c9775dbf860d27b4c",
+    "useSass": true,
+    "applicationType": "monolith",
+    "testFrameworks": [
+      "gatling"
+    ],
+    "jhiPrefix": "jhi",
+    "enableTranslation": false
+  }
+}

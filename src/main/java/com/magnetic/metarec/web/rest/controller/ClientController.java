@@ -7,12 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping(value = "test", produces = "application/hal+json")
-public class TestController {
+@RequestMapping(value = "clients", produces = "application/hal+json")
+public class ClientController {
 
-    @RequestMapping
-    public String testing() {
-
-        return "cat";
+    public void getClients() {
     }
 }

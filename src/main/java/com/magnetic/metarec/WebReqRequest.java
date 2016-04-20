@@ -13,7 +13,11 @@ public class WebReqRequest {
 
     private String page_type;
 
-    private String channel;
-    private String cpc_id;      // For Product ID field
+    private String channel;         // for chn parameter in wr.do GET request
+    private String product_id;      // For cpc parameter in wr.do GET request
 
+    private String category_id;     //  ckc parameter in wr.do GET request
+    private String brand_name;      // bnm parameter in wr.do GET request
+
+    private String
 }

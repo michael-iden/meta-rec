@@ -1,10 +1,7 @@
 package com.magnetic.metarec.web.rest.controller;
 
 import com.magnetic.metarec.WebRecRequest;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,7 +17,7 @@ public class WebRecPerformanceController {
     }
 
     @RequestMapping
-    public void getMostRecommendedProducts() {
+    public void getMostRecommendedProducts(@RequestParam("limit") Integer limit) {
 
     }
 }

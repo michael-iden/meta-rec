@@ -5,9 +5,9 @@
         .module('metaRecApp')
         .controller('SimulatorController', SimulatorController);
 
-    SimulatorController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    SimulatorController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http'];
 
-    function SimulatorController ($scope, Principal, LoginService, $state) {
+    function SimulatorController ($scope, Principal, LoginService, $state, $http) {
         var vm = this;
 
         vm.account = null;
@@ -29,5 +29,10 @@
         function register () {
             $state.go('register');
         }
+
+        $http.get('/test').success(function (data) {
+            console.log(data);
+        });
+
     }
 })();

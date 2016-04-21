@@ -1,5 +1,6 @@
-package com.magnetic.metarec;
+package com.magnetic.metarec.service.util;
 
+import com.magnetic.metarec.dto.WebRecRequestParameters;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.net.URI;
@@ -42,18 +43,14 @@ public class DavidRandomUtil
     private int numRequests;
     private URI uri;
 
-    public DavidRandomUtil(String clientName,
-                                             String serverEnvironment,
-                                             String pageTypeParam,
-                                             String zoneIds,
-                                             int getNumReqs)
+
+    public DavidRandomUtil(WebRecRequestParameters requestParameters)
     {
         this();
-        client = getEmptyStringIfNull(clientName);
-        webrecServerAddress = serverEnvironment;
-        webreqZones = getDefaultIfNullOrEmpty(zoneIds, "1");
-        pageType = pageTypeParam;
-        numRequests = getNumReqs;
+        client = getEmptyStringIfNull(requestParameters.getClientIdentifier());
+        webreqZones = getDefaultIfNullOrEmpty(requestParameters.getZoneId(), "1");
+        pageType = requestParameters.getPageType().getKey();
+        numRequests = requestParameters.getNumberOfQueries();
 
     }
 
@@ -90,7 +87,7 @@ public class DavidRandomUtil
         urib.setPath("/webrec/wr.do");
         urib.setParameter("client", client);
         urib.setParameter("wrz", webreqZones);
-        urib.setParameter("pt", PageType.getPageTypeKeyFromDisplayName(pageType).getKey());
+        urib.setParameter("pt", pageType);
         urib.setParameter("cpc", productId);
         urib.setParameter("chn", channel);
         urib.setParameter("bnm", brandName);
@@ -152,8 +149,5 @@ public class DavidRandomUtil
         return supplied;
     }
 
-    public static void main(String[] args)
-    {
-        DavidRandomUtil wrrsc = new DavidRandomUtil("JOANN", null, "Product Detail", "1", 2);
-    }
+
 }

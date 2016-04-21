@@ -1,5 +1,6 @@
 package com.magnetic.metarec;
 
+import com.magnetic.metarec.service.util.DavidRequest;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.net.URI;
@@ -124,7 +125,7 @@ public class WebRecRequestSchedulingController
         }
         for (int x = 0; x < numRequests; x++)
         {
-            WebRecRequest wrr = new WebRecRequest(uri, this, "" + x);
+            DavidRequest wrr = new DavidRequest(uri);
             Thread wrrThread = new Thread(wrr);
             wrrThread.start();
         }

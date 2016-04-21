@@ -1,4 +1,4 @@
-package com.magnetic.metarec;
+package com.magnetic.metarec.service.util;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,17 +20,17 @@ import java.net.URI;
 public class DavidRequest implements Runnable{
 
 
-    private WebRecRequestSchedulingController controller;
+
     private URI requestURI;
     private HttpGet httpConnect;
     private String request_id;
 
-    public DavidRequest(URI uri, WebRecRequestSchedulingController control, String req_id)
+    public DavidRequest(URI uri)
     {
         requestURI = uri;
-        controller = control;
+
         httpConnect = new HttpGet(requestURI);
-        request_id = req_id;
+
     }
 
     public void run()

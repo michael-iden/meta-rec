@@ -2,14 +2,11 @@ package com.magnetic.metarec.service.parsing;
 
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -37,7 +34,7 @@ import java.net.URI;
 /**
  * Created by dwhitesell on 4/20/16.
  */
-public class REC_FETCHER_THREAD implements Runnable{
+public class RecFetcherRunnable implements Runnable{
 
 
 
@@ -47,7 +44,7 @@ public class REC_FETCHER_THREAD implements Runnable{
     private StringBuilder loggingText;
 
 
-    public REC_FETCHER_THREAD(URI uri)
+    public RecFetcherRunnable(URI uri)
     {
         requestURI = uri;
 
@@ -56,7 +53,7 @@ public class REC_FETCHER_THREAD implements Runnable{
 
     }
 
-    public REC_FETCHER_THREAD(URI uri, String req_id)
+    public RecFetcherRunnable(URI uri, String req_id)
     {
         requestURI = uri;
         request_id = req_id;

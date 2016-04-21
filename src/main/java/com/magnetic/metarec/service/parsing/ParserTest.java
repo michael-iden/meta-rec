@@ -4,18 +4,11 @@ package com.magnetic.metarec.service.parsing;
 
 import com.magnetic.metarec.PageType;
 import com.magnetic.metarec.dto.WebRecRequestParameters;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * Created by kraja on 4/21/16.
  */
-public class PARSER_TEST{
+public class ParserTest {
 
 
     public static void getRecommendations(WebRecRequestParameters request) {
@@ -25,7 +18,7 @@ public class PARSER_TEST{
         request.setZoneId("1");
         request.setNumberOfQueries(1);
 
-        URIBUILDER util = new URIBUILDER(request);
+        UriBuilder util = new UriBuilder(request);
         util.RunRequests();
 
 //        try {

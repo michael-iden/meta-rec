@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 /**
  * Created by dwhitesell on 4/20/16.
  */
-public class URIBUILDER
+public class UriBuilder
 {
     private String client;
     private String sessionId;
@@ -44,7 +44,7 @@ public class URIBUILDER
     private URI uri;
 
 
-    public URIBUILDER(WebRecRequestParameters requestParameters)
+    public UriBuilder(WebRecRequestParameters requestParameters)
     {
         this();
         client = getEmptyStringIfNull(requestParameters.getClientIdentifier());
@@ -54,7 +54,7 @@ public class URIBUILDER
 
     }
 
-    public URIBUILDER()
+    public UriBuilder()
     {
         webrecServerAddress = getDefaultIfNullOrEmpty(webrecServerAddress,"t.p.mybuys.com");
         channel = getDefaultIfNullOrEmpty(channel, "web");
@@ -121,7 +121,7 @@ public class URIBUILDER
         }
         for (int x = 0; x < numRequests; x++)
         {
-            REC_FETCHER_THREAD wrr = new REC_FETCHER_THREAD(uri, "" + x);
+            RecFetcherRunnable wrr = new RecFetcherRunnable(uri, "" + x);
             Thread wrrThread = new Thread(wrr);
             wrrThread.run();
         }

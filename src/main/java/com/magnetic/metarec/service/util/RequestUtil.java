@@ -20,29 +20,7 @@ import java.net.URI;
 public class RequestUtil{
 
 
-/*
-    private URI requestURI;
-    private HttpGet httpConnect;
-    private String request_id;
 
-    public RequestUtil(URI uri)
-    {
-        requestURI = uri;
-
-        httpConnect = new HttpGet(requestURI);
-
-    }
-
-    public void run()
-    {
-        try {
-            String responseFromRequest = getResponseFromRequest();
-        } catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-*/
     public static String getResponseFromRequest(URI uri) throws Exception
     {
 
@@ -65,8 +43,8 @@ public class RequestUtil{
 
         };
         response = httpclient.execute(httpConnect, responseHandler);
-        System.out.println("----------------------------------------");
-        System.out.println(response);
+      //  System.out.println("----------------------------------------");
+       // System.out.println(response);
         return response;
     }
 }

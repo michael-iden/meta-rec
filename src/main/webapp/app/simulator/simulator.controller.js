@@ -12,13 +12,21 @@
         $scope.clientSelectPlaceholder = "Loading Please Wait";
         $scope.clients = [];
 
-        $scope.selectedClient = {};
-
         $scope.pageTypeList = {};
         $scope.zonesList = {};
 
-        $scope.selectedPageType = {};
-        $scope.selectedZone = {};
+        $scope.pips = "";
+
+        $scope.simulationParams =  {
+            "clientIdentifier": "",
+            "pageType": "",
+            "zoneId": "",
+            "productId": "",
+            "productsInPage": [],
+            "consumerId": "",
+            "brandName": "",
+            "numberOfQueries": ""
+        };
 
         var clientList = [];
         $http.get('/clients').success(function(clients) {
@@ -35,25 +43,33 @@
         };
 
         $scope.getPageTypes = function() {
-            $http.get('/' + $scope.selectedClient.value + '/pageTypes').success(function(pageTypeConfig) {
-                $scope.selectedPageType = {};
-                $scope.selectedZone = {};
+
+            $http.get('/' + $scope.simulationParams.clientIdentifier + '/pageTypes').success(function(pageTypeConfig) {
+                $scope.simulationParams.pageType = "";
+                $scope.simulationParams.zoneId = "";
                 $scope.pageTypeList = pageTypeConfig._embedded.pageTypes;
             });
-        }
+        };
 
-        $scope.pageTypeSelected = function() {
-            console.log($scope.selectedPageType);
-            $http.get($scope.selectedPageType.pageType._links.zones.href).success(function(zoneData) {
-                $scope.selectedZone = {};
+        $scope.pageTypeSelected = function(pageTypeEntry) {
+
+            $http.get(pageTypeEntry._links.zones.href).success(function(zoneData) {
+                $scope.simulationParams.zoneId = "";
                 $scope.zonesList = zoneData;
             });
-        }
+        };
 
         $scope.submitSimulation = function () {
-            $http.post("/"+$scope.selectedClient.value + '/webRecSimulator', 'test' ).success(function() {
+
+            $http.post('/' + $scope.simulationParams.clientIdentifier + '/webRecSimulator', $scope.simulationParams).success(function() {
                 console.log("Completed post");
             });
-        }
+        };
+
+        $scope.pipsToArray = function() {
+            console.log($scope.pips);
+            console.log($scope.pips.split(','));
+            $scope.simulationParams.productsInPage = $scope.pips.split(',');
+        };
     }
 })();

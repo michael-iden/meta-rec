@@ -4,17 +4,17 @@ package com.magnetic.metarec.service;
 
 import com.magnetic.metarec.PageType;
 import com.magnetic.metarec.dto.WebRecRequestParameters;
-import com.magnetic.metarec.service.util.DavidRandomUtil;
-import com.magnetic.metarec.service.util.DavidRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.magnetic.metarec.service.util.UrlUtil;
+import com.magnetic.metarec.service.util.RequestUtil;
+import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
 
 /**
  * Created by kraja on 4/21/16.
  */
+
+@Service
 public class RecommendationService {
 
 
@@ -25,12 +25,10 @@ public class RecommendationService {
         request.setZoneId("1");
         request.setNumberOfQueries(1);
 
-        DavidRandomUtil util = new DavidRandomUtil(request);
-
         try {
-            DavidRequest recrequest = new DavidRequest(util.getURI());
-            recrequest.run();
-        } catch (URISyntaxException e) {
+
+            RequestUtil.getResponseFromRequest(UrlUtil.getURI(request));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -17,15 +17,15 @@ import java.net.URI;
 /**
  * Created by dwhitesell on 4/20/16.
  */
-public class DavidRequest implements Runnable{
+public class RequestUtil{
 
 
-
+/*
     private URI requestURI;
     private HttpGet httpConnect;
     private String request_id;
 
-    public DavidRequest(URI uri)
+    public RequestUtil(URI uri)
     {
         requestURI = uri;
 
@@ -42,9 +42,12 @@ public class DavidRequest implements Runnable{
             ex.printStackTrace();
         }
     }
-
-    public String getResponseFromRequest() throws Exception
+*/
+    public static String getResponseFromRequest(URI uri) throws Exception
     {
+
+        HttpGet httpConnect = new HttpGet(uri);
+
         String response = "";
         CloseableHttpClient httpclient = HttpClients.createDefault();
         ResponseHandler<String> responseHandler = new ResponseHandler<String>() {

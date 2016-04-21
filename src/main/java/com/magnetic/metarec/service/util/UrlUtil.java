@@ -1,7 +1,9 @@
 package com.magnetic.metarec.service.util;
 
 import com.magnetic.metarec.dto.WebRecRequestParameters;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
+import org.springframework.cglib.core.CollectionUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +11,7 @@ import java.net.URISyntaxException;
 /**
  * Created by dwhitesell on 4/20/16.
  */
-public class DavidRandomUtil
+public class UrlUtil
 {
     private String client;
     private String sessionId;
@@ -44,60 +46,52 @@ public class DavidRandomUtil
     private URI uri;
 
 
-    public DavidRandomUtil(WebRecRequestParameters requestParameters)
-    {
-        this();
-        client = getEmptyStringIfNull(requestParameters.getClientIdentifier());
-        webreqZones = getDefaultIfNullOrEmpty(requestParameters.getZoneId(), "1");
-        pageType = requestParameters.getPageType().getKey();
-        numRequests = requestParameters.getNumberOfQueries();
 
-    }
 
-    public DavidRandomUtil()
-    {
-        webrecServerAddress = getDefaultIfNullOrEmpty(webrecServerAddress,"t.p.mybuys.com");
-        channel = getDefaultIfNullOrEmpty(channel, "web");
-        pageType = getDefaultIfNullOrEmpty(pageType, "PRODUCT_DETAIL");
-        productId = getEmptyStringIfNull(productId);
-        categoryId = getEmptyStringIfNull(categoryId);
-        brandName = getEmptyStringIfNull(brandName);
-        productInPage = getEmptyStringIfNull(productInPage);
-        products = getEmptyStringIfNull(products);
-        inventoryCategory = getEmptyStringIfNull(inventoryCategory);
-        inventoryAttributeName = getEmptyStringIfNull(inventoryAttributeName);
-        inventoryAttributeValue = getEmptyStringIfNull(inventoryAttributeValue);
-        filteringAttribute1 = getEmptyStringIfNull(filteringAttribute1);
-        filteringAttribute2 = getEmptyStringIfNull(filteringAttribute2);
-        filteringAttribute1Val = getEmptyStringIfNull(filteringAttribute1Val);
-        filteringAttribute2Val = getEmptyStringIfNull(filteringAttribute2Val);
-        orderId = getEmptyStringIfNull(orderId);
-        overrideConsumerId = getEmptyStringIfNull(overrideConsumerId);
-        overrideEmail = getEmptyStringIfNull(overrideEmail);
-        outOfStock = getEmptyStringIfNull(outOfStock);
-        keywords = getEmptyStringIfNull(keywords);
-        language = getDefaultIfNullOrEmpty(language, "en");
+    public static URI getURI(WebRecRequestParameters requestParams) throws URISyntaxException {
 
-    }
-
-    public URI getURI() throws URISyntaxException {
+        URI uri;
         URIBuilder urib = new URIBuilder();
+
         urib.setScheme("http");
-        urib.setHost(webrecServerAddress);
+        urib.setHost("t.p.mybuys.com");
         urib.setPath("/webrec/wr.do");
-        urib.setParameter("client", client);
-        urib.setParameter("wrz", webreqZones);
-        urib.setParameter("pt", pageType);
-        urib.setParameter("cpc", productId);
+
+        urib.setParameter("client", requestParams.getClientIdentifier());
+        urib.setParameter("wrz", requestParams.getZoneId());
+        urib.setParameter("pt", requestParams.getPageType().getKey());
+
+        if(StringUtils.isNotEmpty(requestParams.getProductId())) {
+            urib.setParameter("cpc",requestParams.getProductId() );
+        }
+
+        if(StringUtils.isNotEmpty(requestParams.getBrandName())) {
+            urib.setParameter("bnm", requestParams.getBrandName());
+        }
+
+        if(requestParams.getProductsInPage() != null && requestParams.getProductsInPage().size()>0){
+            StringBuilder sb = new StringBuilder();
+            for(String pip : requestParams.getProductsInPage())
+            {
+                sb.append(pip);
+            }
+            urib.setParameter("pips", sb.toString());
+
+        }
+
+        if(StringUtils.isNotEmpty(requestParams.getFilteringAttributeName()) && StringUtils.isNotEmpty(requestParams.getFilteringAttributeValue()))
+        {
+            urib.setParameter("mbfa", requestParams.getFilteringAttributeName());
+            urib.setParameter("mbfa_filtering_attribute_1", requestParams.getFilteringAttributeValue());
+        }
+
+        uri = urib.build();
+
+        /*
         urib.setParameter("chn", channel);
-        urib.setParameter("bnm", brandName);
-        urib.setParameter("pips", productInPage);
-        urib.setParameter("prods", products);
         urib.setParameter("scckc", inventoryCategory);
         urib.setParameter("scattr", inventoryAttributeName);
         urib.setParameter("scval", inventoryAttributeValue);
-        urib.setParameter("mbfa_filtering_attribute_1", filteringAttribute1Val);
-        urib.setParameter("mbfa_filtering_attribute_2", filteringAttribute1Val);
         urib.setParameter("order", orderId);
         urib.setParameter("email", overrideEmail);
         urib.setParameter("ostock", outOfStock);
@@ -105,11 +99,13 @@ public class DavidRandomUtil
         urib.setParameter("mbcc", overrideConsumerId);
         urib.setParameter("lang", language);
         urib.setParameter("v4", "6.0.0");
-        uri = urib.build();
+
+        */
+
         return uri;
 
     }
-
+/*
     public void RunRequests()
     {
         try {
@@ -127,27 +123,7 @@ public class DavidRandomUtil
         }
     }
 
-    public static String getEmptyStringIfNull(String input)
-    {
-        String output;
-        if (input == null)
-        {
-            output = "";
-        } else {
-            output = input;
-        }
-        return output;
-    }
-
-    public static String getDefaultIfNullOrEmpty(String input, String defaultValue)
-    {
-        String supplied = getEmptyStringIfNull(input);
-        if (supplied.isEmpty())
-        {
-            supplied = defaultValue;
-        } else {    }
-        return supplied;
-    }
+*/
 
 
 }

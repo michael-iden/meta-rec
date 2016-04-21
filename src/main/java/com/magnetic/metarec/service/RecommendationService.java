@@ -4,11 +4,20 @@ package com.magnetic.metarec.service;
 
 import com.magnetic.metarec.PageType;
 import com.magnetic.metarec.dto.WebRecRequestParameters;
+import com.magnetic.metarec.service.util.RecFetcher;
 import com.magnetic.metarec.service.util.UrlUtil;
 import com.magnetic.metarec.service.util.RequestUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
-import java.net.URISyntaxException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by kraja on 4/21/16.
@@ -17,17 +26,38 @@ import java.net.URISyntaxException;
 @Service
 public class RecommendationService {
 
+    private ExecutorService taskExecutor;
 
-    public static void getRecommendations(WebRecRequestParameters request) {
+    public void getRecommendations(WebRecRequestParameters request) {
 
-        request.setClientIdentifier("JOANN");
-        request.setPageType(PageType.SHOPPING_CART);
-        request.setZoneId("1");
-        request.setNumberOfQueries(1);
+
 
         try {
 
-            RequestUtil.getResponseFromRequest(UrlUtil.getURI(request));
+            List<Callable<RecFetcher>> tasks = new ArrayList<Callable<RecFetcher>>();
+
+            int numQueries;
+
+            if(request.getNumberOfQueries() == null) {numQueries = 1;}
+            else {numQueries = request.getNumberOfQueries();}
+
+            URI uri = UrlUtil.getURI(request);
+
+            while(numQueries > 0) {
+                tasks.add(new RecFetcher(uri));
+                numQueries--;
+            }
+
+            /* invokeAll blocks until all service requests complete,
+           * or a max of 10 seconds. */
+            List<Future<RecFetcher>> results = taskExecutor.invokeAll(tasks, 10, TimeUnit.SECONDS);
+            for (Future<RecFetcher> f : results) {
+             System.out.println(f.get());
+            }
+
+
+           // taskExecutor.submit(new RecFetcher(uri));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,8 +66,9 @@ public class RecommendationService {
     }
 
 
-    public static void main(String args[])
-    {
-        getRecommendations(new WebRecRequestParameters());
+    public void setTaskExecutor(ExecutorService taskExecutor1) {
+        this.taskExecutor = taskExecutor1;
     }
+
+
 }

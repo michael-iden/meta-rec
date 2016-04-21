@@ -23,7 +23,7 @@
         var clientList = [];
         $http.get('/clients').success(function(clients) {
             clientList = clients;
-            $scope.clientSelectPlaceholder = "Select a client";
+            $scope.clientSelectPlaceholder = "Start typing client name";
         });
 
         $scope.refreshClients = function(searchClient) {

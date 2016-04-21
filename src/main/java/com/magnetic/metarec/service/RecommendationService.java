@@ -1,14 +1,10 @@
 package com.magnetic.metarec.service;
 
-
-
 import com.magnetic.metarec.PageType;
 import com.magnetic.metarec.dto.WebRecRequestParameters;
-import com.magnetic.metarec.service.util.UrlUtil;
 import com.magnetic.metarec.service.util.RequestUtil;
+import com.magnetic.metarec.service.util.UrlUtil;
 import org.springframework.stereotype.Service;
-
-import java.net.URISyntaxException;
 
 /**
  * Created by kraja on 4/21/16.

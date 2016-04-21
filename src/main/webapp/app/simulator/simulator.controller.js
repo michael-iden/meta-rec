@@ -61,7 +61,7 @@
 
         $scope.submitSimulation = function () {
 
-            $http.post('/' + $scope.simulationParams.clientIdentifier + '/webRecSimulator', $scope.simulationParams).success(function() {
+            $http.post('/' + $scope.simulationParams.clientIdentifier + '/webRecSimulations', $scope.simulationParams).success(function() {
                 console.log("Completed post");
             });
         };

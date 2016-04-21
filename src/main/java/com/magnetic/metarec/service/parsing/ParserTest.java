@@ -3,7 +3,7 @@ package com.magnetic.metarec.service.parsing;
 
 
 import com.magnetic.metarec.PageType;
-import com.magnetic.metarec.dto.WebRecRequestParameters;
+import com.magnetic.metarec.domain.WebRecSimulation;
 
 /**
  * Created by kraja on 4/21/16.
@@ -11,11 +11,11 @@ import com.magnetic.metarec.dto.WebRecRequestParameters;
 public class ParserTest {
 
 
-    public static void getRecommendations(WebRecRequestParameters request) {
+    public static void getRecommendations(WebRecSimulation request) {
 
         request.setClientIdentifier("JOANN");
         request.setPageType(PageType.PRODUCT_DETAILS);
-        request.setZoneId("1");
+        request.setZoneId(1);
         request.setNumberOfQueries(1);
 
         UriBuilder util = new UriBuilder(request);
@@ -39,7 +39,7 @@ public class ParserTest {
 
     public static void main(String args[])
     {
-        getRecommendations(new WebRecRequestParameters());
+        getRecommendations(new WebRecSimulation());
         System.out.println("All Done");
     }
 }

@@ -1,10 +1,8 @@
 package com.magnetic.metarec.web.rest.controller;
 
-import com.magnetic.metarec.domain.reporting.Simulation;
-import com.magnetic.metarec.dto.WebRecRequestParameters;
-import com.magnetic.metarec.repository.SimulationRepository;
+import com.magnetic.metarec.domain.WebRecSimulation;
+import com.magnetic.metarec.repository.WebRecSimulationRepository;
 import com.magnetic.metarec.service.RecommendationService;
-import com.magnetic.metarec.service.SimulatorReportingService;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,40 +18,36 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping(value = "{client}/webRecSimulator", produces = "application/hal+json")
+@RequestMapping(value = "{client}/webRecSimulations", produces = "application/hal+json")
 public class WebRecSimulatorController {
 
     @Inject
     private RecommendationService recommendationService;
 
     @Inject
-    private SimulatorReportingService simulatorReportingService;
-
-    @Inject
-    private SimulationRepository simulationRepository;
+    private WebRecSimulationRepository simulationRepository;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> runSimulation(@PathVariable("client") String client,
-        @RequestBody @Valid WebRecRequestParameters request) {
+        @RequestBody @Valid WebRecSimulation request) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ControllerLinkBuilder.linkTo(WebRecSimulatorController.class, client).slash("12345").toUri());
 
+        simulationRepository.save(request);
         recommendationService.getRecommendations(request);
-
-
 
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/simulations")
-    public List<Simulation> getSimulations(@PathVariable("client") String client) {
+    @RequestMapping(method = RequestMethod.GET)
+    public List<WebRecSimulation> getSimulations(@PathVariable("client") String client) {
 
-        List<Simulation> clientSimulations = new ArrayList<>();
+        List<WebRecSimulation> clientSimulations = new ArrayList<>();
 
-        List<Simulation> simulations = simulationRepository.findAll();
-        for(Simulation sim : simulations) {
-            if(sim.getClient().equals(client)) {
+        List<WebRecSimulation> simulations = simulationRepository.findAll();
+        for(WebRecSimulation sim : simulations) {
+            if(sim.getClientIdentifier().equals(client)) {
                 clientSimulations.add(sim);
             }
         }

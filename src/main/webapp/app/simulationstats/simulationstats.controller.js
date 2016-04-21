@@ -34,7 +34,7 @@
         $scope.simulations = simulations;
 
         $scope.getPriorSimulations = function() {
-            $http.get('/' + $scope.selected.clientIdentifier + '/webRecSimulator/simulations').success(function(simulations) {
+            $http.get('/' + $scope.selected.clientIdentifier + '/webRecSimulations').success(function(simulations) {
                 $scope.simulations = simulations;
             });
         };

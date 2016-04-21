@@ -1,26 +1,50 @@
-package com.magnetic.metarec.dto;
+package com.magnetic.metarec.domain;
 
 import com.magnetic.metarec.PageType;
-import lombok.Data;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by kraja on 4/21/16.
  */
-@Data
-public class WebRecRequestParameters {
+@Entity
+@Table(name = "web_rec_simulation")
+public class WebRecSimulation {
 
-    String clientIdentifier;
-    PageType pageType;
-    String zoneId;
-    String productId;
-    List<String> productsInPage;
-    String consumerId;
-    String brandName;
-    Integer numberOfQueries;
-    String filteringAttributeName;
-    String filteringAttributeValue;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(name = "client_identifier")
+    private String clientIdentifier;
+
+    @Column(name = "page_type")
+    private PageType pageType;
+
+    @Column(name = "zone_id")
+    private Integer zoneId;
+
+    @Column(name = "product_id")
+    private Integer productId;
+
+    @Transient
+    private List<String> productsInPage;
+
+    @Column(name = "consumer_id")
+    private String consumerId;
+
+    @Column(name = "brand_name")
+    private String brandName;
+
+    @Column(name = "number_of_queries")
+    private Integer numberOfQueries;
+
+    @Column(name = "filtering_attribute_name")
+    private String filteringAttributeName;
+
+    @Column(name = "filtering_attribute_value")
+    private String filteringAttributeValue;
 
     public String getFilteringAttributeName() {
         return filteringAttributeName;
@@ -49,11 +73,11 @@ public class WebRecRequestParameters {
     }
 
 
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -89,11 +113,11 @@ public class WebRecRequestParameters {
 
 
 
-    public String getZoneId() {
+    public Integer getZoneId() {
         return zoneId;
     }
 
-    public void setZoneId(String zoneId) {
+    public void setZoneId(Integer zoneId) {
         this.zoneId = zoneId;
     }
 
@@ -116,7 +140,7 @@ public class WebRecRequestParameters {
     }
 
     public String toString() {
-        return "com.magnetic.metarec.dto.WebRecRequestParameters(clientIdentifier=" + this.getClientIdentifier() + ", pageType=" + this.getPageType() + ", zoneId=" + this.getZoneId() + ", productId=" + this.getProductId() + ", productsInPage=" + this.getProductsInPage() + ", consumerId=" + this.getConsumerId() + ", brandName=" + this.getBrandName() + ", numberOfQueries=" + this.getNumberOfQueries() + ")";
+        return "com.magnetic.metarec.domain.WebRecSimulation(clientIdentifier=" + this.getClientIdentifier() + ", pageType=" + this.getPageType() + ", zoneId=" + this.getZoneId() + ", productId=" + this.getProductId() + ", productsInPage=" + this.getProductsInPage() + ", consumerId=" + this.getConsumerId() + ", brandName=" + this.getBrandName() + ", numberOfQueries=" + this.getNumberOfQueries() + ")";
     }
 
 

@@ -1,10 +1,9 @@
 package com.magnetic.metarec.service;
 
 import com.magnetic.metarec.PageType;
-import com.magnetic.metarec.dto.WebRecRequestParameters;
+import com.magnetic.metarec.domain.WebRecSimulation;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,7 +29,7 @@ public class ClientServiceTest {
 
         recService.setTaskExecutor(taskExec);
 
-        WebRecRequestParameters request = new  WebRecRequestParameters();
+        WebRecSimulation request = new WebRecSimulation();
         request.setClientIdentifier("JOANN");
         request.setPageType(PageType.SHOPPING_CART);
         request.setZoneId("1");

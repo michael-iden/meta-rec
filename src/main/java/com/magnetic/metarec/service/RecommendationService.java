@@ -1,7 +1,6 @@
 package com.magnetic.metarec.service;
 
-import com.magnetic.metarec.PageType;
-import com.magnetic.metarec.dto.WebRecRequestParameters;
+import com.magnetic.metarec.domain.WebRecSimulation;
 import com.magnetic.metarec.service.util.RecFetcher;
 import com.magnetic.metarec.service.util.UrlUtil;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ public class RecommendationService {
 
     private ExecutorService taskExecutor;
 
-    public void getRecommendations(WebRecRequestParameters request) {
+    public void getRecommendations(WebRecSimulation request) {
 
 
 

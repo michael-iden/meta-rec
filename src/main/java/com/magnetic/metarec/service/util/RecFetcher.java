@@ -1,7 +1,5 @@
 package com.magnetic.metarec.service.util;
 
-import com.magnetic.metarec.dto.WebRecRequestParameters;
-
 import java.net.URI;
 import java.util.concurrent.Callable;
 

@@ -161,18 +161,27 @@
 
 
 
-        <createTable tableName="simulation">
+        <createTable tableName="web_rec_simulation">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="simulation_timestamp" type="timestamp" defaultValueDate="${now}"/>
-            <column name="client" type="varchar(255)"/>
+            <column name="client_identifier" type="varchar(255)"/>
+            <column name="page_type" type="varchar(255)"/>
+            <column name="zone_id" type="int"/>
+            <column name="product_id" type="int"/>
+            <column name="consumer_id" type="varchar(255)"/>
+            <column name="brand_name" type="varchar(255)"/>
+            <column name="number_of_queries" type="int"/>
+            <column name="filtering_attribute_name" type="varchar(255)"/>
+            <column name="filtering_attribute_value" type="varchar(255)"/>
+
         </createTable>
 
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/simulations.csv"
-                  separator=";"
-                  tableName="simulation"/>
+        <!--<loadData encoding="UTF-8"-->
+                  <!--file="config/liquibase/simulations.csv"-->
+                  <!--separator=";"-->
+                  <!--tableName="web_rec_simulation"/>-->
 
     </changeSet>
 

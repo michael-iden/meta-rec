@@ -1,9 +1,8 @@
 package com.magnetic.metarec.service.util;
 
-import com.magnetic.metarec.dto.WebRecRequestParameters;
+import com.magnetic.metarec.domain.WebRecSimulation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
-import org.springframework.cglib.core.CollectionUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -48,7 +47,7 @@ public class UrlUtil
 
 
 
-    public static URI getURI(WebRecRequestParameters requestParams) throws URISyntaxException {
+    public static URI getURI(WebRecSimulation requestParams) throws URISyntaxException {
 
         URI uri;
         URIBuilder urib = new URIBuilder();
@@ -58,11 +57,11 @@ public class UrlUtil
         urib.setPath("/webrec/wr.do");
 
         urib.setParameter("client", requestParams.getClientIdentifier());
-        urib.setParameter("wrz", requestParams.getZoneId());
+        urib.setParameter("wrz", requestParams.getZoneId().toString());
         urib.setParameter("pt", requestParams.getPageType().getKey());
 
-        if(StringUtils.isNotEmpty(requestParams.getProductId())) {
-            urib.setParameter("cpc",requestParams.getProductId() );
+        if(StringUtils.isNotEmpty(requestParams.getProductId().toString())) {
+            urib.setParameter("cpc",requestParams.getProductId().toString());
         }
 
         if(StringUtils.isNotEmpty(requestParams.getBrandName())) {
@@ -117,7 +116,7 @@ public class UrlUtil
         }
         for (int x = 0; x < numRequests; x++)
         {
-//            WebRecRequest wrr = new WebRecRequest(uri, this, "" + x);
+//            WebRecSimulation wrr = new WebRecSimulation(uri, this, "" + x);
 //            Thread wrrThread = new Thread(wrr);
 //            wrrThread.start();
         }

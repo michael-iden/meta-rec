@@ -1,3 +1,11 @@
 <div ng-cloak>
-   //TODO: Simulator code goes here
+
+    <ui-select ng-model="selectedClient.value">
+        <ui-select-match>
+            <span ng-bind="$select.selected"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="client in (clients | filter: $select.search)">
+            <span ng-bind="client"></span>
+        </ui-select-choices>
+    </ui-select>
 </div>

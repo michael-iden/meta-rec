@@ -124,6 +124,7 @@ dependencies {
 
     compile group: 'com.magnetic.siterex.integration', name:'merch-siterex-integration-dtos', version: 'RELEASE-20160406-c5ccd3'
 
+    compile('org.projectlombok:lombok:1.16.6')
     compile group: 'io.dropwizard.metrics', name: 'metrics-core'
     compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-ehcache', version: dropwizard_metrics_version

@@ -1,5 +1,6 @@
 package com.magnetic.metarec.web.rest.controller;
 
+import com.magnetic.metarec.dto.WebRecRequestParameters;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,8 @@ public class WebRecSimulatorController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> runSimulation(@PathVariable("client") String client,
-        @RequestBody @Valid String request) {
+        @RequestBody @Valid WebRecRequestParameters request) {
 
-        System.out.println(request);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ControllerLinkBuilder.linkTo(WebRecSimulatorController.class, client).slash("12345").toUri());
 

@@ -1,15 +1,21 @@
 package com.magnetic.metarec.dto;
 
+import com.magnetic.metarec.PageType;
+import lombok.Data;
+
+import java.util.List;
+
 /**
  * Created by kraja on 4/21/16.
  */
+@Data
 public class WebRecRequestParameters {
 
     String clientIdentifier;
-    String pageType;
+    PageType pageType;
     String zoneId;
     String productId;
-    String productsInPage;
+    List<String> productsInPage;
     String consumerId;
     String brandName;
     Integer numberOfQueries;
@@ -63,11 +69,11 @@ public class WebRecRequestParameters {
 
 
 
-    public String getProductsInPage() {
+    public List<String> getProductsInPage() {
         return productsInPage;
     }
 
-    public void setProductsInPage(String productsInPage) {
+    public void setProductsInPage(List<String> productsInPage) {
         this.productsInPage = productsInPage;
     }
 
@@ -93,11 +99,11 @@ public class WebRecRequestParameters {
 
 
 
-    public String getPageType() {
+    public PageType getPageType() {
         return pageType;
     }
 
-    public void setPageType(String pageType) {
+    public void setPageType(PageType pageType) {
         this.pageType = pageType;
     }
 
@@ -109,6 +115,9 @@ public class WebRecRequestParameters {
         this.numberOfQueries = numberOfQueries;
     }
 
+    public String toString() {
+        return "com.magnetic.metarec.dto.WebRecRequestParameters(clientIdentifier=" + this.getClientIdentifier() + ", pageType=" + this.getPageType() + ", zoneId=" + this.getZoneId() + ", productId=" + this.getProductId() + ", productsInPage=" + this.getProductsInPage() + ", consumerId=" + this.getConsumerId() + ", brandName=" + this.getBrandName() + ", numberOfQueries=" + this.getNumberOfQueries() + ")";
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.magnetic.metarec.service;
 
 import com.magnetic.metarec.PageType;
 import com.magnetic.metarec.domain.WebRecSimulation;
+import com.magnetic.metarec.repository.WebRecSimulationRepository;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,14 +27,13 @@ public class ClientServiceTest {
         RecommendationService recService = new RecommendationService();
         ExecutorService taskExec =  Executors.newFixedThreadPool(5);
 
-
         recService.setTaskExecutor(taskExec);
 
         WebRecSimulation request = new WebRecSimulation();
         request.setClientIdentifier("JOANN");
         request.setPageType(PageType.SHOPPING_CART);
-        request.setZoneId("1");
-        request.setNumberOfQueries(30);
+        request.setZoneId(1);
+        request.setNumberOfQueries(1);
 
         recService.getRecommendations(request);
     }

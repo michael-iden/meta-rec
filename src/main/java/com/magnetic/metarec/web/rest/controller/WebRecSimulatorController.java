@@ -34,7 +34,7 @@ public class WebRecSimulatorController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ControllerLinkBuilder.linkTo(WebRecSimulatorController.class, client).slash("12345").toUri());
 
-        simulationRepository.save(request);
+        //simulationRepository.save(request);
         recommendationService.getRecommendations(request);
 
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);

@@ -60,7 +60,7 @@ public class UrlUtil
         urib.setParameter("wrz", requestParams.getZoneId().toString());
         urib.setParameter("pt", requestParams.getPageType().getKey());
 
-        if(StringUtils.isNotEmpty(requestParams.getProductId().toString())) {
+        if(requestParams.getProductId()!=null) {
             urib.setParameter("cpc",requestParams.getProductId().toString());
         }
 
@@ -85,6 +85,7 @@ public class UrlUtil
         }
 
         uri = urib.build();
+
 
         /*
         urib.setParameter("chn", channel);

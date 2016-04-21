@@ -63,6 +63,9 @@
 
             $http.post('/' + $scope.simulationParams.clientIdentifier + '/webRecSimulations', $scope.simulationParams).success(function() {
                 console.log("Completed post");
+                location.href = '#/simulationstats';
+            }).error(function () {
+                console.log("Post failed");
             });
         };
 

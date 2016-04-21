@@ -1,6 +1,6 @@
 package com.magnetic.metarec.service.parsing;
 
-import com.magnetic.metarec.dto.WebRecRequestParameters;
+import com.magnetic.metarec.domain.WebRecSimulation;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.net.URI;
@@ -44,11 +44,11 @@ public class UriBuilder
     private URI uri;
 
 
-    public UriBuilder(WebRecRequestParameters requestParameters)
+    public UriBuilder(WebRecSimulation requestParameters)
     {
         this();
         client = getEmptyStringIfNull(requestParameters.getClientIdentifier());
-        webreqZones = getDefaultIfNullOrEmpty(requestParameters.getZoneId(), "1");
+        webreqZones = getDefaultIfNullOrEmpty(requestParameters.getZoneId().toString(), "1");
         pageType = requestParameters.getPageType().getKey();
         numRequests = requestParameters.getNumberOfQueries();
 

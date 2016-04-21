@@ -3,6 +3,7 @@ package com.magnetic.metarec.domain;
 import com.magnetic.metarec.PageType;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -15,6 +16,9 @@ public class WebRecSimulation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column(name = "simulation_timestamp")
+    private LocalDateTime timestamp = LocalDateTime.now();
 
     @Column(name = "client_identifier")
     private String clientIdentifier;
@@ -46,23 +50,21 @@ public class WebRecSimulation {
     @Column(name = "filtering_attribute_value")
     private String filteringAttributeValue;
 
-    public String getFilteringAttributeName() {
-        return filteringAttributeName;
+    public LocalDateTime getTimestamp() {
+        return this.timestamp;
     }
 
-    public void setFilteringAttributeName(String filteringAttributeName) {
-        this.filteringAttributeName = filteringAttributeName;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public String getFilteringAttributeValue() {
-        return filteringAttributeValue;
+    public int getId() {
+        return this.id;
     }
 
-    public void setFilteringAttributeValue(String filteringAttributeValue) {
-        this.filteringAttributeValue = filteringAttributeValue;
+    public void setId(int id) {
+        this.id = id;
     }
-
-
 
     public String getClientIdentifier() {
         return clientIdentifier;
@@ -72,7 +74,6 @@ public class WebRecSimulation {
         this.clientIdentifier = clientIdentifier;
     }
 
-
     public Integer getProductId() {
         return productId;
     }
@@ -80,8 +81,6 @@ public class WebRecSimulation {
     public void setProductId(Integer productId) {
         this.productId = productId;
     }
-
-
 
     public String getConsumerId() {
         return consumerId;
@@ -91,8 +90,6 @@ public class WebRecSimulation {
         this.consumerId = consumerId;
     }
 
-
-
     public List<String> getProductsInPage() {
         return productsInPage;
     }
@@ -100,8 +97,6 @@ public class WebRecSimulation {
     public void setProductsInPage(List<String> productsInPage) {
         this.productsInPage = productsInPage;
     }
-
-
 
     public String getBrandName() {
         return brandName;
@@ -111,8 +106,6 @@ public class WebRecSimulation {
         this.brandName = brandName;
     }
 
-
-
     public Integer getZoneId() {
         return zoneId;
     }
@@ -120,7 +113,6 @@ public class WebRecSimulation {
     public void setZoneId(Integer zoneId) {
         this.zoneId = zoneId;
     }
-
 
 
     public PageType getPageType() {
@@ -137,6 +129,22 @@ public class WebRecSimulation {
 
     public void setNumberOfQueries(Integer numberOfQueries) {
         this.numberOfQueries = numberOfQueries;
+    }
+
+    public String getFilteringAttributeName() {
+        return filteringAttributeName;
+    }
+
+    public void setFilteringAttributeName(String filteringAttributeName) {
+        this.filteringAttributeName = filteringAttributeName;
+    }
+
+    public String getFilteringAttributeValue() {
+        return filteringAttributeValue;
+    }
+
+    public void setFilteringAttributeValue(String filteringAttributeValue) {
+        this.filteringAttributeValue = filteringAttributeValue;
     }
 
     public String toString() {

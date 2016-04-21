@@ -1,7 +1,12 @@
 package com.magnetic.metarec.web.rest.controller;
 
+import com.magnetic.metarec.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.inject.Inject;
+import java.util.List;
 
 /**
  *
@@ -10,6 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "clients", produces = "application/hal+json")
 public class ClientController {
 
-    public void getClients() {
+    @Inject
+    private ClientService clientService;
+
+    public List<String> getClients() {
+        return clientService.getClientsActiveOnWebrec();
+
     }
 }

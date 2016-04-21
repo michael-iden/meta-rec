@@ -1,15 +1,11 @@
 package com.magnetic.metarec.service;
 
-
-
 import com.magnetic.metarec.PageType;
 import com.magnetic.metarec.dto.WebRecRequestParameters;
 import com.magnetic.metarec.service.util.RecFetcher;
 import com.magnetic.metarec.service.util.UrlUtil;
-import com.magnetic.metarec.service.util.RequestUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
+
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -18,6 +14,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+
 
 /**
  * Created by kraja on 4/21/16.

@@ -16,7 +16,8 @@
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar',
             'ui.select',
-            'ngSanitize'
+            'ngSanitize',
+            'angular-chartist'
         ])
         .run(run);
 

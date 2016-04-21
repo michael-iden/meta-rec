@@ -1,4 +1,4 @@
-<div ng-cloak>
+<div ng-cloak class="well">
 
     <ui-select ng-model="simulationParams.clientIdentifier" on-select="getPageTypes()">
         <ui-select-match placeholder="{{ clientSelectPlaceholder }}">
@@ -31,15 +31,4 @@
     <button type="button" class="btn btn-primary" ng-click="submitSimulation()">
         Run Simulation
     </button>
-
-    <div>
-        <div class="chart">
-            <chartist class="ct-chart ct-golden-section" chartist-data="recipes" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>
-        </div>
-        <div class="chart">
-            <chartist class="ct-chart ct-golden-section" chartist-data="barData" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>
-        </div>
-        <!--<chartist class="ct-chart ct-golden-section" chartist-data="barData" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>-->
-    <!--<chartist class="ct-chart ct-golden-section" chartist-data="barData" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>-->
-    </div>
 </div>

@@ -1,20 +1,18 @@
 package com.magnetic.metarec.service;
 
 
-
 import com.magnetic.metarec.PageType;
 import com.magnetic.metarec.dto.WebRecRequestParameters;
 import com.magnetic.metarec.service.util.DavidRandomUtil;
 import com.magnetic.metarec.service.util.DavidRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
 
 /**
  * Created by kraja on 4/21/16.
  */
+@Service
 public class RecommendationService {
 
 

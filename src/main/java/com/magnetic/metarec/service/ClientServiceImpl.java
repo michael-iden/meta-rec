@@ -1,5 +1,6 @@
 package com.magnetic.metarec.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -12,8 +13,19 @@ import java.util.List;
 /**
  * Created by kraja on 4/20/16.
  */
+
 @Component
 public class ClientServiceImpl implements ClientService {
+
+
+    @Value("${jdbc.url}")
+    String url;
+
+    @Value("${jdbc.username}")
+    String username;
+
+    @Value("${jdbc.password}")
+    String password;
 
 
     public List<String> getClientsActiveOnWebrec()
@@ -22,8 +34,7 @@ public class ClientServiceImpl implements ClientService {
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            String url = "jdbc:oracle:thin:@oracle.aws-qa.mybuystest.com:1521:DEVQA";
-            Connection conn = DriverManager.getConnection(url,"qa","password");
+            Connection conn = DriverManager.getConnection(url, username, password);
             Statement stmt = conn.createStatement();
             ResultSet rs;
 

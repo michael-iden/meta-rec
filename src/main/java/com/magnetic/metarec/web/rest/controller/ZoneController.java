@@ -1,11 +1,13 @@
 package com.magnetic.metarec.web.rest.controller;
 
 import com.magnetic.metarec.PageType;
+import com.magnetic.metarec.service.WebRecConfigService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import javax.inject.Inject;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,9 +17,13 @@ import java.util.List;
 @RequestMapping(value = "{client}/{pageType}/zones", produces = "application/hal+json")
 public class ZoneController {
 
-    public List<String> getZones(@PathVariable("client") String client,
-                                 @PathVariable("pageType") PageType pageType) {
+    @Inject
+    private WebRecConfigService webRecConfigService;
 
-        return new ArrayList<>();
+    @RequestMapping
+    public List<Integer> getZones(@PathVariable("client") String client,
+                                 @PathVariable("pageType") PageType pageType) throws IOException {
+
+        return webRecConfigService.getZoneIdsForPageType(client, pageType);
     }
 }

@@ -6,6 +6,7 @@ import com.magnetic.metarec.service.MerchBaseService;
 import groovy.util.logging.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
@@ -38,6 +39,9 @@ public class MetaRecApp {
 
     @Inject
     private Environment env;
+
+    @Value("${integration.server.url}")
+    private String integrationServerUrl;
 
     /**
      * Initializes MetaRec.
@@ -100,7 +104,7 @@ public class MetaRecApp {
     @Bean
     public MerchBaseService merchBaseService() {
         Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.10.48.216:8086/")
+            .baseUrl(integrationServerUrl)
             .addConverterFactory(JacksonConverterFactory.create())
             .build();
 

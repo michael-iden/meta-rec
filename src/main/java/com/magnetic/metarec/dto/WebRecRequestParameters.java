@@ -13,6 +13,25 @@ public class WebRecRequestParameters {
     String consumerId;
     String brandName;
     Integer numberOfQueries;
+    String filteringAttributeName;
+    String filteringAttributeValue;
+
+    public String getFilteringAttributeName() {
+        return filteringAttributeName;
+    }
+
+    public void setFilteringAttributeName(String filteringAttributeName) {
+        this.filteringAttributeName = filteringAttributeName;
+    }
+
+    public String getFilteringAttributeValue() {
+        return filteringAttributeValue;
+    }
+
+    public void setFilteringAttributeValue(String filteringAttributeValue) {
+        this.filteringAttributeValue = filteringAttributeValue;
+    }
+
 
 
     public String getClientIdentifier() {

@@ -2,25 +2,33 @@ package com.magnetic.metarec;
 
 import com.magnetic.metarec.config.Constants;
 import com.magnetic.metarec.config.JHipsterProperties;
-
+import com.magnetic.metarec.service.MerchBaseService;
+import groovy.util.logging.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.*;
+import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
+import retrofit.JacksonConverterFactory;
+import retrofit.Retrofit;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.net.ssl.HostnameVerifier;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @ComponentScan
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class })
 @EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class })
@@ -87,5 +95,26 @@ public class MetaRecApp {
 
             app.setAdditionalProfiles(Constants.SPRING_PROFILE_DEVELOPMENT);
         }
+    }
+
+    @Bean
+    public MerchBaseService merchBaseService() {
+        Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://10.10.48.216:8086/")
+            .addConverterFactory(JacksonConverterFactory.create())
+            .build();
+
+        retrofit.client().setHostnameVerifier(nullHostnameVerifier());
+        retrofit.client().setReadTimeout(1L, TimeUnit.MINUTES); // increase timeout to 1 min.
+
+        return retrofit.create(MerchBaseService.class);
+    }
+
+    @Bean
+    public HostnameVerifier nullHostnameVerifier() {
+        return (hostname, sslSession) -> {
+            log.info(String.format("Verifying hostname %s", hostname));
+            return true;
+        };
     }
 }

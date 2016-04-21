@@ -5,34 +5,36 @@
         .module('metaRecApp')
         .controller('SimulatorController', SimulatorController);
 
-    SimulatorController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http'];
+    SimulatorController.$inject = ['$scope', '$state', '$http'];
 
-    function SimulatorController ($scope, Principal, LoginService, $state, $http) {
-        var vm = this;
+    function SimulatorController ($scope, $state, $http) {
 
-        vm.account = null;
-        vm.isAuthenticated = null;
-        vm.login = LoginService.open;
-        vm.register = register;
-        $scope.$on('authenticationSuccess', function() {
-            getAccount();
+        $scope.clientSelectPlaceholder = "Loading Please Wait";
+        $scope.clients = [];
+
+        var clientList;
+        $http.get('/clients').success(function(clients) {
+            clientList = clients;
+            $scope.clientSelectPlaceholder = "Select a client";
         });
 
-        getAccount();
+        $scope.selectedClient = {};
 
-        function getAccount() {
-            Principal.identity().then(function(account) {
-                vm.account = account;
-                vm.isAuthenticated = Principal.isAuthenticated;
+
+        $scope.refreshClients = function(searchClient) {
+            if(searchClient.length > 1) {
+                $scope.clients = clientList;
+            } else {
+                $scope.clients = [];
+            }
+        };
+
+
+        $scope.getPageTypes = function() {
+            console.log($scope.selectedClient);
+            $http.get('/' + $scope.selectedClient.value + '/pageTypes').success(function(pageTypes) {
+                console.log(pageTypes);
             });
         }
-        function register () {
-            $state.go('register');
-        }
-
-        $http.get('/test').success(function (data) {
-            console.log(data);
-        });
-
     }
 })();

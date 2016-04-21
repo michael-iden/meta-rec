@@ -17,8 +17,7 @@
             views: {
                 'simulator-content@': {
                     templateUrl: 'app/simulator/simulator.html',
-                    controller: 'SimulatorController',
-                    controllerAs: 'vm'
+                    controller: 'SimulatorController'
                 }
             }
         });

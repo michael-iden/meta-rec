@@ -96,6 +96,22 @@ configurations {
 }
 
 repositories {
+    maven {
+        url 's3://packages-magnetic-com.s3.amazonaws.com/maven/releases'
+        credentials(AwsCredentials) {
+            accessKey 'AKIAJJPL2D3IY3LZ45DA'
+            secretKey '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'
+        }
+    }
+
+    maven {
+        url 's3://packages-magnetic-com.s3.amazonaws.com/maven/snapshots'
+        credentials(AwsCredentials) {
+            accessKey 'AKIAJJPL2D3IY3LZ45DA'
+            secretKey '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'
+        }
+    }
+
     maven { url 'http://repo.spring.io/milestone' }
     maven { url 'http://repo.spring.io/snapshot' }
     maven { url 'https://repository.jboss.org/nexus/content/repositories/releases' }
@@ -105,6 +121,8 @@ repositories {
 }
 
 dependencies {
+
+    compile group: 'com.magnetic.siterex.integration', name:'merch-siterex-integration-dtos', version: 'RELEASE-20160406-c5ccd3'
 
     compile group: 'io.dropwizard.metrics', name: 'metrics-core'
     compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
@@ -135,7 +153,7 @@ dependencies {
     }
     compile group: 'commons-lang', name: 'commons-lang', version: commons_lang_version
     compile group: 'commons-io', name: 'commons-io', version: commons_io_version
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: org_apache_httpcomponents_version
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
     compile group: 'javax.inject', name: 'javax.inject', version: javax_inject_version
     compile group: 'javax.transaction', name: 'javax.transaction-api'
     compile group: 'org.apache.geronimo.javamail', name: 'geronimo-javamail_1.4_mail', version: geronimo_javamail_1_4_mail_version
@@ -166,9 +184,14 @@ dependencies {
     compile(group: 'org.springframework', name: 'spring-context-support') {
         exclude(module: 'quartz')
     }
+    compile 'com.oracle:ojdbc14:10.2.0.4.0'
+
     compile group: 'org.springframework.security', name: 'spring-security-config', version: spring_security_version
     compile group: 'org.springframework.security', name: 'spring-security-data', version: spring_security_version
     compile group: 'org.springframework.security', name: 'spring-security-web', version: spring_security_version
+
+    compile group: 'com.squareup.retrofit', name: 'retrofit', version: '2.0.0-beta2'
+    compile group: 'com.squareup.retrofit', name: 'converter-jackson', version: '2.0.0-beta2'
 
     compile(group: 'io.springfox', name: 'springfox-swagger2', version: springfox_version){
         exclude module: 'mapstruct'
@@ -177,7 +200,10 @@ dependencies {
     compile group: 'com.h2database', name: 'h2'
     compile group: 'fr.ippon.spark.metrics', name: 'metrics-spark-reporter', version: metrics_spark_reporter_version
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: mapstruct_version
+    compile('com.oracle:ojdbc14:10.2.0.4.0')
+
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version
+
     testCompile group: 'com.jayway.jsonpath', name: 'json-path'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 	  testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_core_version

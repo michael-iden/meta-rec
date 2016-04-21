@@ -27,6 +27,11 @@ spring:
             enabled: false
     thymeleaf:
         mode: XHTML
+    datasource:
+        url: jdbc:oracle:thin:@oracle.aws-qa.mybuystest.com:1521:DEVQA
+        name:
+        username: qa
+        password: password
 
 security:
     basic:

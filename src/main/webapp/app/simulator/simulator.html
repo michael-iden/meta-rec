@@ -1,3 +1,21 @@
 <div ng-cloak>
-   //TODO: Simulator code goes here
+
+    <ui-select ng-model="selectedClient.value" on-select="getPageTypes()">
+        <ui-select-match placeholder="{{ clientSelectPlaceholder }}">
+            <span ng-bind="$select.selected"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="client in (clients | filter: $select.search)" refresh="refreshClients($select.search)">
+            <span ng-bind="client"></span>
+        </ui-select-choices>
+    </ui-select>
+
+    <div class="selector">
+        <div class="selector-title">{{ sectionTitle }}</div>
+        <div class="selection radio radio-primary radio-inline" ng-repeat="pageTypeConfig in pageTypeList">
+            <input type="radio" name="radio-pagetype{{$index}}" id="radio-pagetype{{$index}}" ng-model="selected.pageType" ng-value="pageTypeConfig" ng-change="pageTypeSelected()">
+            <label for="radio-pagetype{{$index}}">{{ pageTypeConfig.displayName.toUpperCase() }}</label>
+        </div>
+    </div>
+
+
 </div>

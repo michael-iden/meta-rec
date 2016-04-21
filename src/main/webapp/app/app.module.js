@@ -3,7 +3,7 @@
 
     angular
         .module('metaRecApp', [
-            'ngStorage', 
+            'ngStorage',
             'ngResource',
             'ngCookies',
             'ngAria',
@@ -14,7 +14,9 @@
             'ui.router',
             'infinite-scroll',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
-            'angular-loading-bar'
+            'angular-loading-bar',
+            'ui.select',
+            'ngSanitize'
         ])
         .run(run);
 

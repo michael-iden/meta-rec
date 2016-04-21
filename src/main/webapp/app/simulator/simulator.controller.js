@@ -9,14 +9,32 @@
 
     function SimulatorController ($scope, $state, $http) {
 
-        $scope.clients = [
-            'JOANN',
-            'WESTMARINE',
-            'SKECHERS',
-            'JOURNEYS',
-            'TEST'
-        ];
+        $scope.clientSelectPlaceholder = "Loading Please Wait";
+        $scope.clients = [];
 
-        $scope.selectedClient = { value: $scope.clients[0] };
+        var clientList;
+        $http.get('/clients').success(function(clients) {
+            clientList = clients;
+            $scope.clientSelectPlaceholder = "Select a client";
+        });
+
+        $scope.selectedClient = {};
+
+
+        $scope.refreshClients = function(searchClient) {
+            if(searchClient.length > 1) {
+                $scope.clients = clientList;
+            } else {
+                $scope.clients = [];
+            }
+        };
+
+
+        $scope.getPageTypes = function() {
+            console.log($scope.selectedClient);
+            $http.get('/' + $scope.selectedClient.value + '/pageTypes').success(function(pageTypes) {
+                console.log(pageTypes);
+            });
+        }
     }
 })();

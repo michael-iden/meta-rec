@@ -27,7 +27,7 @@ public class ClientServiceImpl implements ClientService {
             Statement stmt = conn.createStatement();
             ResultSet rs;
 
-            rs = stmt.executeQuery("select identifier from rm_client where web_status='ACTIVE' OR web_status='PREP'");
+            rs = stmt.executeQuery("select identifier from rm_client where web_status='ACTIVE' OR web_status='PREP' order by identifier");
             while ( rs.next() ) {
                 clientNames.add(rs.getString(1));
             }

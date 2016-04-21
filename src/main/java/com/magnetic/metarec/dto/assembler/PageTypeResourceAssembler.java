@@ -7,6 +7,8 @@ import com.magnetic.metarec.web.rest.controller.ZoneController;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -26,8 +28,12 @@ public class PageTypeResourceAssembler extends ResourceAssemblerSupport<PageType
 
         PageTypeResource resource = instantiateResource(pageTypeZoneKeys);
 
-        resource.add(linkTo(methodOn(ZoneController.class, pageTypeZoneKeys.getClient(),
-            pageTypeZoneKeys.getPageType()).getZones(pageTypeZoneKeys.getClient(), pageTypeZoneKeys.getPageType())).withRel("zones"));
+        try {
+            resource.add(linkTo(methodOn(ZoneController.class, pageTypeZoneKeys.getClient(),
+                pageTypeZoneKeys.getPageType()).getZones(pageTypeZoneKeys.getClient(), pageTypeZoneKeys.getPageType())).withRel("zones"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return resource;
     }

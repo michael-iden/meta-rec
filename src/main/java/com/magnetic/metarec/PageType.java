@@ -84,4 +84,13 @@ public enum PageType {
 
         throw new IllegalArgumentException("Unable to get page type from key:" + key);
     }
+
+    public static PageType getPageTypeKeyFromDisplayName(String displayName) throws IllegalArgumentException {
+        for (PageType pageType : values()) {
+            if (pageType.getDisplayName().equals(displayName)) {
+                return pageType;
+            }
+        }
+        throw new IllegalArgumentException("Unable to get page type from displayName:" + displayName);
+    }
 }

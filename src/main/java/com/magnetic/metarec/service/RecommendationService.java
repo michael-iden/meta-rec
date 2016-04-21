@@ -1,11 +1,13 @@
 package com.magnetic.metarec.service;
 
 import com.magnetic.metarec.domain.WebRecSimulation;
+import com.magnetic.metarec.repository.WebRecSimulationRepository;
 import com.magnetic.metarec.service.util.RecFetcher;
 import com.magnetic.metarec.service.util.UrlUtil;
 import org.springframework.stereotype.Service;
 
 
+import javax.inject.Inject;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class RecommendationService {
 
     private ExecutorService taskExecutor;
+
+    @Inject
+    private WebRecSimulationRepository webRecSimulationRepository;
 
     public void getRecommendations(WebRecSimulation request) {
 
@@ -64,6 +69,21 @@ public class RecommendationService {
 
     public void setTaskExecutor(ExecutorService taskExecutor1) {
         this.taskExecutor = taskExecutor1;
+    }
+
+
+
+    public List<WebRecSimulation> getSimulationRuns(String client) {
+        List<WebRecSimulation> clientSimulations = new ArrayList<>();
+
+        List<WebRecSimulation> simulations = webRecSimulationRepository.findAll();
+        for(WebRecSimulation sim : simulations) {
+            if(sim.getClientIdentifier().equals(client)) {
+                clientSimulations.add(sim);
+            }
+        }
+
+        return clientSimulations;
     }
 
 

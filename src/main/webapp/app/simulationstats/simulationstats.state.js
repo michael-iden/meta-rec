@@ -8,16 +8,16 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('simuationstats', {
+        $stateProvider.state('simulationstats', {
             parent: 'app',
             url: '/simulationstats',
             data: {
                 authorities: []
             },
             views: {
-                'simuation-stats-content@': {
+                'simulation-stats-content@': {
                     templateUrl: 'app/simulationstats/simulationstats.html',
-                    controller: 'SimuationStatsController'
+                    controller: 'SimulationStatsController'
                 }
             }
         });

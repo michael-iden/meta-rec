@@ -12,6 +12,7 @@ public class WebRecRequestParameters {
     String productsInPage;
     String consumerId;
     String brandName;
+    Integer numberOfQueries;
 
 
     public String getClientIdentifier() {
@@ -79,6 +80,14 @@ public class WebRecRequestParameters {
 
     public void setPageType(String pageType) {
         this.pageType = pageType;
+    }
+
+    public Integer getNumberOfQueries() {
+        return numberOfQueries;
+    }
+
+    public void setNumberOfQueries(Integer numberOfQueries) {
+        this.numberOfQueries = numberOfQueries;
     }
 
 

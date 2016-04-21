@@ -3,6 +3,7 @@ package com.magnetic.metarec;
 import com.magnetic.metarec.config.Constants;
 import com.magnetic.metarec.config.JHipsterProperties;
 import com.magnetic.metarec.service.MerchBaseService;
+import com.magnetic.metarec.service.RecommendationService;
 import groovy.util.logging.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +18,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import retrofit.JacksonConverterFactory;
 import retrofit.Retrofit;
+import sun.nio.ch.ThreadPool;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -27,6 +30,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -42,6 +47,9 @@ public class MetaRecApp {
 
     @Value("${integration.server.url}")
     private String integrationServerUrl;
+
+    @Value("${rec.service.threads}")
+    private Integer recServiceThreads;
 
     /**
      * Initializes MetaRec.
@@ -113,6 +121,18 @@ public class MetaRecApp {
 
         return retrofit.create(MerchBaseService.class);
     }
+
+    @Bean
+    public RecommendationService recommendationService(){
+
+        RecommendationService recService = new RecommendationService();
+        ExecutorService taskExecutor = Executors.newFixedThreadPool(recServiceThreads);
+        recService.setTaskExecutor(taskExecutor);
+
+        return recService;
+
+    }
+
 
     @Bean
     public HostnameVerifier nullHostnameVerifier() {

@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 /**
  * Created by dwhitesell on 4/20/16.
  */
-public class WebRecRequestSchedulingController
+public class DavidRandomUtil
 {
     private String client;
     private String sessionId;
@@ -42,7 +42,7 @@ public class WebRecRequestSchedulingController
     private int numRequests;
     private URI uri;
 
-    public WebRecRequestSchedulingController(String clientName,
+    public DavidRandomUtil(String clientName,
                                              String serverEnvironment,
                                              String pageTypeParam,
                                              String zoneIds,
@@ -57,7 +57,7 @@ public class WebRecRequestSchedulingController
 
     }
 
-    public WebRecRequestSchedulingController()
+    public DavidRandomUtil()
     {
         webrecServerAddress = getDefaultIfNullOrEmpty(webrecServerAddress,"t.p.mybuys.com");
         channel = getDefaultIfNullOrEmpty(channel, "web");
@@ -124,9 +124,9 @@ public class WebRecRequestSchedulingController
         }
         for (int x = 0; x < numRequests; x++)
         {
-            WebRecRequest wrr = new WebRecRequest(uri, this, "" + x);
-            Thread wrrThread = new Thread(wrr);
-            wrrThread.start();
+//            WebRecRequest wrr = new WebRecRequest(uri, this, "" + x);
+//            Thread wrrThread = new Thread(wrr);
+//            wrrThread.start();
         }
     }
 
@@ -154,6 +154,6 @@ public class WebRecRequestSchedulingController
 
     public static void main(String[] args)
     {
-        WebRecRequestSchedulingController wrrsc = new WebRecRequestSchedulingController("JOANN", null, "Product Detail", "1", 2);
+        DavidRandomUtil wrrsc = new DavidRandomUtil("JOANN", null, "Product Detail", "1", 2);
     }
 }

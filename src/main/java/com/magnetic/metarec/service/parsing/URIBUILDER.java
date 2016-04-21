@@ -1,4 +1,4 @@
-package com.magnetic.metarec.service.util;
+package com.magnetic.metarec.service.parsing;
 
 import com.magnetic.metarec.dto.WebRecRequestParameters;
 import org.apache.http.client.utils.URIBuilder;
@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 /**
  * Created by dwhitesell on 4/20/16.
  */
-public class DavidRandomUtil
+public class URIBUILDER
 {
     private String client;
     private String sessionId;
@@ -44,7 +44,7 @@ public class DavidRandomUtil
     private URI uri;
 
 
-    public DavidRandomUtil(WebRecRequestParameters requestParameters)
+    public URIBUILDER(WebRecRequestParameters requestParameters)
     {
         this();
         client = getEmptyStringIfNull(requestParameters.getClientIdentifier());
@@ -54,7 +54,7 @@ public class DavidRandomUtil
 
     }
 
-    public DavidRandomUtil()
+    public URIBUILDER()
     {
         webrecServerAddress = getDefaultIfNullOrEmpty(webrecServerAddress,"t.p.mybuys.com");
         channel = getDefaultIfNullOrEmpty(channel, "web");
@@ -121,9 +121,9 @@ public class DavidRandomUtil
         }
         for (int x = 0; x < numRequests; x++)
         {
-//            WebRecRequest wrr = new WebRecRequest(uri, this, "" + x);
-//            Thread wrrThread = new Thread(wrr);
-//            wrrThread.start();
+            REC_FETCHER_THREAD wrr = new REC_FETCHER_THREAD(uri, "" + x);
+            Thread wrrThread = new Thread(wrr);
+            wrrThread.start();
         }
     }
 

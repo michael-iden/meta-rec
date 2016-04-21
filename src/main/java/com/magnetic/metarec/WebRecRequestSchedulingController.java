@@ -54,6 +54,7 @@ public class WebRecRequestSchedulingController
         webreqZones = getDefaultIfNullOrEmpty(zoneIds, "1");
         pageType = pageTypeParam;
         numRequests = numRequests;
+
     }
 
     public WebRecRequestSchedulingController()
@@ -112,6 +113,23 @@ public class WebRecRequestSchedulingController
 
     }
 
+    public void RunRequests()
+    {
+        try {
+            getURI();
+        } catch (URISyntaxException urisexception)
+        {
+            System.out.println("invalid syntax on URI ");
+            urisexception.printStackTrace();
+        }
+        for (int x = 0; x < numRequests; x++)
+        {
+            WebRecRequest wrr = new WebRecRequest(uri, this, "" + x);
+            Thread wrrThread = new Thread(wrr);
+            wrrThread.start();
+        }
+    }
+
     public static String getEmptyStringIfNull(String input)
     {
         String output;
@@ -132,5 +150,10 @@ public class WebRecRequestSchedulingController
             supplied = defaultValue;
         } else {    }
         return supplied;
+    }
+
+    public static void main(String[] args)
+    {
+        WebRecRequestSchedulingController wrrsc = new WebRecRequestSchedulingController("JOANN", null, "Product Detail", "1", 2);
     }
 }

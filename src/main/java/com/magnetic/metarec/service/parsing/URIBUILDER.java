@@ -123,7 +123,7 @@ public class URIBUILDER
         {
             REC_FETCHER_THREAD wrr = new REC_FETCHER_THREAD(uri, "" + x);
             Thread wrrThread = new Thread(wrr);
-            wrrThread.start();
+            wrrThread.run();
         }
     }
 

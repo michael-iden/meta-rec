@@ -14,6 +14,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -102,7 +103,7 @@ public class REC_FETCHER_THREAD implements Runnable{
         response = mybuysJs + "\n" + response ;
         if (request_id != null)
         {
-            FileUtils.writeStringToFile(new File(request_id + ".response.log"), response + "\n\n\n" + requestURI.toString());
+            FileUtils.writeStringToFile(new File(request_id + ".response.log"), requestURI.toString());
         } else {    }
 //        System.out.println("----------------------------------------");
 //        System.out.println(response);
@@ -128,9 +129,30 @@ public class REC_FETCHER_THREAD implements Runnable{
         XPath xpath = XPathFactory.newInstance().newXPath();
 
         String xpathExpression = "//div[@class ='MB_PRODUCTSLOT']";
+        //<span class="MB_DEBUG" cl="JOANN" cp="" cc="" pr="zprd_13490602a" re="6912665" po="6912336" cr="6912334" style="display:none"></span>
+        String MB_DEBUG_XPATH= "./span[@class='MB_DEBUG']";
+        //String MB_PRODUCT_KEY_XPATH = "./";
         NodeList nodes = (NodeList) xpath.evaluate
             (xpathExpression, inputSource, XPathConstants.NODESET);
         int number_of_recommendations = nodes.getLength();
+
+        for (int x = 0; x < nodes.getLength(); x ++)
+        {
+            Node currentNode = nodes.item(x);
+            Node MB_DEBUG = (Node) xpath.evaluate(MB_DEBUG_XPATH, currentNode, XPathConstants.NODE);
+            String productKey = MB_DEBUG.getAttributes().getNamedItem("pr").getNodeValue();
+            String client = MB_DEBUG.getAttributes().getNamedItem("cl").getNodeValue();
+            String customer_category = MB_DEBUG.getAttributes().getNamedItem("cc").getNodeValue();
+            String recipe_id = MB_DEBUG.getAttributes().getNamedItem("re").getNodeValue();
+            String policy  = MB_DEBUG.getAttributes().getNamedItem("po").getNodeValue();
+            String criteria = MB_DEBUG.getAttributes().getNamedItem("cr").getNodeValue();
+            System.out.println("ProductKey = " + productKey);
+            System.out.println("client = " + client);
+            System.out.println("customer category = " + customer_category);
+            System.out.println("recipe id = " + recipe_id);
+            System.out.println("policy id = " + policy);
+            System.out.println("Criteria = " + criteria);
+        }
         loggingText.append("\n\n\n\n--------------------\n\nFound " + number_of_recommendations + " recommendations in response");
     }
 

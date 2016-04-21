@@ -5,9 +5,45 @@
         .module('metaRecApp')
         .controller('SimulationStatsController', SimulationStatsController);
 
-    SimulationStatsController.$inject = ['$scope', '$state'];
+    SimulationStatsController.$inject = ['$scope', '$state', '$http'];
 
-    function SimulationStatsController ($scope, $state) {
+    function SimulationStatsController ($scope, $state, $http) {
+
+        $scope.selected = {
+            "clientIdentifier": "",
+            "simulation": ""
+        };
+
+        $scope.clientSelectPlaceholder = "Loading Please Wait";
+        var clientList = [];
+        var simulations = [];
+
+        $http.get('/clients').success(function(clients) {
+            clientList = clients;
+            $scope.clientSelectPlaceholder = "Start typing client name";
+        });
+
+        $scope.refreshClients = function(searchClient) {
+            if(searchClient.length > 2) {
+                $scope.clients = clientList;
+            } else {
+                $scope.clients = [];
+            }
+        };
+
+        $scope.simulations = simulations;
+
+        $scope.getPriorSimulations = function() {
+            $http.get('/' + $scope.selected.clientIdentifier + '/webRecSimulator/simulations').success(function(simulations) {
+                $scope.simulations = simulations;
+            });
+        };
+
+        $scope.getSimulationData = function() {
+            console.log($scope.selected.simulation);
+        };
+
+
         $scope.recipes = {
             labels: ['Rec1', 'Rec2', 'Rec3', 'Rec4', 'Rec5'],
             series: [

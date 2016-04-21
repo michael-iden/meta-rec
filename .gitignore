@@ -29,6 +29,7 @@
 .metadata
 /bin/**
 /tmp/**
+/src/main/webapp/bower_components
 /tmp/**/*
 *.tmp
 *.bak

@@ -46,11 +46,11 @@ public class Simulation {
         this.client = client;
     }
 
-    public LocalDateTime getLocalDateTime() {
+    public LocalDateTime getSimulationTimestamp() {
         return simulationTimestamp;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
+    public void setSimulationTimestamp(LocalDateTime localDateTime) {
         this.simulationTimestamp = localDateTime;
     }
 

@@ -39,6 +39,15 @@ public class WebRecSimulatorController {
 
         return recommendationService.getSimulationRuns(client);
     }
+
+
+    @RequestMapping(value = "/{id}/recipeData", method = RequestMethod.GET)
+    public String get(@PathVariable("id") String id) {
+        System.out.println("Hitting controller");
+        return id;
+    }
+
+
 //
 //    @RequestMapping(value = "topRecipes/{simulationId}")
 //    public void getTopRecipes(@RequestParam("limit") Integer limit) {

@@ -40,7 +40,9 @@
         };
 
         $scope.getSimulationData = function() {
-            console.log($scope.selected.simulation);
+            $http.get('/' + $scope.selected.clientIdentifier + '/webRecSimulations/' + $scope.selected.simulation.id + "/recipeData").success(function (data) {
+                console.log(data);
+            });
         };
 
 

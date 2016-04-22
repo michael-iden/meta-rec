@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -43,9 +45,19 @@ public class WebRecSimulatorController {
 
 
     @RequestMapping(value = "/{id}/recipeData", method = RequestMethod.GET)
-    public List<ResponseParameters> get(@PathVariable("id") Integer id) {
+    public Map<String, Integer> getRecipe(@PathVariable("id") Integer id) {
 
-        return recommendationService.getResponseParameters(id);
+        List<ResponseParameters> parametersList = recommendationService.getResponseParameters(id);
+        Map<String, Integer> recipesFreq = new HashMap<>();
+        for(ResponseParameters response : parametersList) {
+            String recipeId = response.getRecipeId();
+            if(!recipesFreq.containsKey(recipeId)) {
+                recipesFreq.put(recipeId, 0);
+            }
+            recipesFreq.put(recipeId, recipesFreq.get(recipeId)+1);
+        }
+
+        return recipesFreq;
     }
 
 

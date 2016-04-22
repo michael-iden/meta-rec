@@ -92,8 +92,8 @@ public class RecommendationService {
             List<Future<RecFetcher>> results = taskExecutor.invokeAll(tasks, 10, TimeUnit.SECONDS);
             for (Future<RecFetcher> f : results) {
 
-//                List<ResponseParameters> relevantParamsInResponseList = parseRecommendations(String.valueOf(f.get()));
-                List<ResponseParameters> relevantParamsInResponseList = evaluateResponseJSToHTML(String.valueOf(f.get()));
+                List<ResponseParameters> relevantParamsInResponseList = parseRecommendations(String.valueOf(f.get()));
+//                List<ResponseParameters> relevantParamsInResponseList = evaluateResponseJSToHTML(String.valueOf(f.get()));
 
                 for(ResponseParameters responseParameters : relevantParamsInResponseList) {
                     responseParameters.setJobId(jobId);
@@ -131,6 +131,7 @@ public class RecommendationService {
                 responseParams.setRecipeId(debugMatcher.group(5));
                 responseParams.setPolicy(debugMatcher.group(6));
                 responseParams.setCriteria(debugMatcher.group(7));
+                responseParams.setCustomerCategory(debugMatcher.group(3));
 
                 reponseParametersList.add(responseParams);
             }

@@ -20,3 +20,24 @@
     text-align: center;
     width: 400px;
 }
+
+.input-label {
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.radio-label {
+    padding: 0px 30px 0px 5px !important;
+}
+
+.radio-center {
+    bottom: 5px;
+}
+
+.really-inline {
+    margin-top: 0px !important;
+}
+
+.space {
+    margin-bottom: 5px;
+}

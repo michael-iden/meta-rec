@@ -1,5 +1,6 @@
 <div ng-cloak class="well">
 
+    <span class="input-label">Select a client:</span>
     <ui-select ng-model="simulationParams.clientIdentifier" on-select="getPageTypes()">
         <ui-select-match placeholder="{{ clientSelectPlaceholder }}">
             <span ng-bind="$select.selected"></span>
@@ -9,26 +10,35 @@
         </ui-select-choices>
     </ui-select>
 
-    <div class="selector">
-        <div class="selection radio radio-primary radio-inline" ng-repeat="pageTypeEntry in pageTypeList">
-            <input type="radio" ng-model="simulationParams.pageType" ng-value="pageTypeEntry.pageType" ng-change="pageTypeSelected(pageTypeEntry)">
-            <label>{{ pageTypeEntry.displayName.toUpperCase() }}</label>
+    <div ng-if="simulationParams.clientIdentifier">
+        <span class="input-label">Page Type:</span>
+        <div class="selector">
+            <div class="selection radio radio-primary radio-inline really-inline" ng-repeat="pageTypeEntry in pageTypeList">
+                <input class="radio-center" type="radio" ng-model="simulationParams.pageType" ng-value="pageTypeEntry.pageType" ng-change="pageTypeSelected(pageTypeEntry)">
+                <label class="radio-label">{{ pageTypeEntry.displayName.toUpperCase() }}</label>
+            </div>
         </div>
     </div>
 
-    <div class="selector">
-        <div class="selection radio radio-primary radio-inline" ng-repeat="zone in zonesList">
-            <input type="radio" ng-model="simulationParams.zoneId" ng-value="zone">
-            <label>{{ zone }}</label>
+    <div ng-if="simulationParams.pageType">
+        <span class="input-label">Zone Number:</span>
+        <div class="selector">
+            <div class="selection radio radio-primary radio-inline really-inline" ng-repeat="zone in zonesList">
+                <input class="radio-center" type="radio" ng-model="simulationParams.zoneId" ng-value="zone">
+                <label class="radio-label">{{ zone }}</label>
+            </div>
         </div>
     </div>
 
-    <input placeholder="Input CPC" type="text" class="form-control" ng-model="simulationParams.productId"/>
-    <input placeholder="Input PIPs" type="text" class="form-control" ng-model="pips" ng-change="pipsToArray()"/>
-    <input placeholder="Input Consumer ID" type="text" class="form-control" ng-model="simulationParams.consumerId"/>
-    <input placeholder="Input Brand Name" type="text" class="form-control" ng-model="simulationParams.brandName"/>
-    <input placeholder="Input Number Of Runs" type="text" class="form-control" ng-model="simulationParams.numberOfQueries"/>
-    <button type="button" class="btn btn-primary" ng-click="submitSimulation()">
-        Run Simulation
-    </button>
+    <div ng-if="simulationParams.zoneId">
+        <span class="input-label">Extras:</span>
+        <input placeholder="CPC" type="text" class="form-control space" ng-model="simulationParams.productId"/>
+        <input placeholder="PIPs" type="text" class="form-control space" ng-model="pips" ng-change="pipsToArray()"/>
+        <input placeholder="Consumer ID" type="text" class="form-control space" ng-model="simulationParams.consumerId"/>
+        <input placeholder="Brand Name" type="text" class="form-control space" ng-model="simulationParams.brandName"/>
+        <input placeholder="Calls for WebRecs" type="text" class="form-control space" ng-model="simulationParams.numberOfQueries"/>
+        <button type="button" class="btn btn-primary" ng-click="submitSimulation()">
+            Run Simulation
+        </button>
+    </div>
 </div>

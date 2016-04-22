@@ -17,8 +17,8 @@ public class ResponseParameters {
     int jobId;
     String productKey;
     String client;
-    String customer_category;
-    String recipe_id;
+    String customerCategory;
+    String recipeId;
     String policy ;
     String criteria;
 
@@ -38,12 +38,12 @@ public class ResponseParameters {
         this.client = client;
     }
 
-    public String getCustomer_category() {
-        return customer_category;
+    public String getCustomerCategory() {
+        return customerCategory;
     }
 
-    public void setCustomer_category(String customer_category) {
-        this.customer_category = customer_category;
+    public void setCustomerCategory(String customerCategory) {
+        this.customerCategory = customerCategory;
     }
 
     public String getProductKey() {
@@ -54,12 +54,12 @@ public class ResponseParameters {
         this.productKey = productKey;
     }
 
-    public String getRecipe_id() {
-        return recipe_id;
+    public String getRecipeId() {
+        return recipeId;
     }
 
-    public void setRecipe_id(String recipe_id) {
-        this.recipe_id = recipe_id;
+    public void setRecipeId(String recipeId) {
+        this.recipeId = recipeId;
     }
 
     public String getPolicy() {

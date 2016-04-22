@@ -5,9 +5,9 @@
         .module('metaRecApp')
         .controller('SimulationStatsController', SimulationStatsController);
 
-    SimulationStatsController.$inject = ['$scope', '$state', '$http'];
+    SimulationStatsController.$inject = ['$scope', '$state', '$http', '$routeParams'];
 
-    function SimulationStatsController ($scope, $state, $http) {
+    function SimulationStatsController ($scope, $state, $http, $routeParams) {
 
         $scope.selected = {
             "clientIdentifier": "",
@@ -27,7 +27,7 @@
             if(searchClient.length > 2) {
                 $scope.clients = clientList;
             } else {
-                $scope.clients = [];
+                $scope.clients = ["JOANN"];
             }
         };
 

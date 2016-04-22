@@ -10,6 +10,7 @@
         </ui-select>
 
         <div ng-if="selected.clientIdentifier">
+            <br>
             <ui-select ng-model="selected.simulation" on-select="getSimulationData()">
                 <ui-select-match placeholder="Select a simulation">
                     <span>{{ $select.selected.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}</span>

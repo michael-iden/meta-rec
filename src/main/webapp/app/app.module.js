@@ -17,7 +17,8 @@
             'angular-loading-bar',
             'ui.select',
             'ngSanitize',
-            'angular-chartist'
+            'angular-chartist',
+            'ngRoute'
         ])
         .run(run);
 

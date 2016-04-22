@@ -1,6 +1,7 @@
 package com.magnetic.metarec.web.rest.controller;
 
 import com.magnetic.metarec.domain.WebRecSimulation;
+import com.magnetic.metarec.domain.reporting.ResponseParameters;
 import com.magnetic.metarec.service.RecommendationService;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -42,9 +43,9 @@ public class WebRecSimulatorController {
 
 
     @RequestMapping(value = "/{id}/recipeData", method = RequestMethod.GET)
-    public String get(@PathVariable("id") String id) {
-        System.out.println("Hitting controller");
-        return id;
+    public List<ResponseParameters> get(@PathVariable("id") Integer id) {
+
+        return recommendationService.getResponseParameters(id);
     }
 
 

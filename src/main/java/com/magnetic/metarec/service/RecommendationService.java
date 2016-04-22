@@ -60,6 +60,19 @@ public class RecommendationService {
 
     private ExecutorService taskExecutor;
 
+
+    public List<ResponseParameters> getResponseParameters(Integer jobId) {
+        List<ResponseParameters> responseParametersList = responseParameterRepository.findAll();
+
+        List<ResponseParameters> responseParametersWithMatchingId = new ArrayList<>();
+        for(ResponseParameters responseParameters : responseParametersList) {
+            if(responseParameters.getJobId() == jobId) {
+                responseParametersWithMatchingId.add(responseParameters);
+            }
+        }
+        return responseParametersWithMatchingId;
+    }
+
     public void getRecommendations(WebRecSimulation request) {
 
 

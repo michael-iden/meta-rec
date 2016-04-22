@@ -10,6 +10,13 @@ public class RecFetcher implements Callable {
 
     private URI uri;
 
+    private String response ="";
+
+    public String getResponse() {
+        return response;
+    }
+
+
     public RecFetcher(URI uri)
     {
         this.uri = uri;
@@ -17,8 +24,6 @@ public class RecFetcher implements Callable {
 
     @Override
     public String call() {
-
-        String response="";
 
         try {
            response =  RequestUtil.getResponseFromRequest(uri);

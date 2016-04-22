@@ -6,10 +6,33 @@ import com.magnetic.metarec.repository.ResponseParameterRepository;
 import com.magnetic.metarec.repository.WebRecSimulationRepository;
 import com.magnetic.metarec.service.util.RecFetcher;
 import com.magnetic.metarec.service.util.UrlUtil;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import java.io.File;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,7 +92,8 @@ public class RecommendationService {
             List<Future<RecFetcher>> results = taskExecutor.invokeAll(tasks, 10, TimeUnit.SECONDS);
             for (Future<RecFetcher> f : results) {
 
-                List<ResponseParameters> relevantParamsInResponseList = parseRecommendations(String.valueOf(f.get()));
+//                List<ResponseParameters> relevantParamsInResponseList = parseRecommendations(String.valueOf(f.get()));
+                List<ResponseParameters> relevantParamsInResponseList = evaluateResponseJSToHTML(String.valueOf(f.get()));
 
                 for(ResponseParameters responseParameters : relevantParamsInResponseList) {
                     responseParameters.setJobId(jobId);
@@ -114,6 +138,64 @@ public class RecommendationService {
 
         return reponseParametersList;
 
+    }
+
+    public List<ResponseParameters> evaluateResponseJSToHTML(String responseJS) throws Exception
+    {
+        List<ResponseParameters> reponseParametersList = new ArrayList<>();
+
+        String responseBody = FileUtils.readFileToString(new File("mybuys_spoofjs.js"), "UTF-8") + responseJS;
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("javascript");
+        ScriptContext context = engine.getContext();
+        StringWriter writer = new StringWriter();
+        context.setWriter(writer);
+        engine.eval(responseBody);
+        String zonehtml = (String) ((ScriptObjectMirror) engine.get("zoneHtmls")).get("1");
+        zonehtml = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" + zonehtml;
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setValidating(false);
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        InputSource inputSource = new InputSource( new StringReader( zonehtml) );
+
+        XPath xpath = XPathFactory.newInstance().newXPath();
+
+        String xpathExpression = "//div[@class ='MB_PRODUCTSLOT']";
+        //<span class="MB_DEBUG" cl="JOANN" cp="" cc="" pr="zprd_13490602a" re="6912665" po="6912336" cr="6912334" style="display:none"></span>
+        String MB_DEBUG_XPATH= "./span[@class='MB_DEBUG']";
+        //String MB_PRODUCT_KEY_XPATH = "./";
+        NodeList nodes = (NodeList) xpath.evaluate
+            (xpathExpression, inputSource, XPathConstants.NODESET);
+        int number_of_recommendations = nodes.getLength();
+
+        for (int x = 0; x < nodes.getLength(); x ++)
+        {
+            Node currentNode = nodes.item(x);
+            Node MB_DEBUG = (Node) xpath.evaluate(MB_DEBUG_XPATH, currentNode, XPathConstants.NODE);
+            String productKey = MB_DEBUG.getAttributes().getNamedItem("pr").getNodeValue();
+            String client = MB_DEBUG.getAttributes().getNamedItem("cl").getNodeValue();
+            String customer_category = MB_DEBUG.getAttributes().getNamedItem("cc").getNodeValue();
+            String recipe_id = MB_DEBUG.getAttributes().getNamedItem("re").getNodeValue();
+            String policy  = MB_DEBUG.getAttributes().getNamedItem("po").getNodeValue();
+            String criteria = MB_DEBUG.getAttributes().getNamedItem("cr").getNodeValue();
+            ResponseParameters responseParams = new ResponseParameters();
+            responseParams.setClient(client);
+            responseParams.setProductKey(productKey);
+            responseParams.setRecipeId(recipe_id);
+            responseParams.setPolicy(policy);
+            responseParams.setCriteria(criteria);
+            reponseParametersList.add(responseParams);
+        }
+        return reponseParametersList;
+    }
+
+    public static String prettyPrint(Document xml) throws Exception {
+        Transformer tf = TransformerFactory.newInstance().newTransformer();
+        tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        tf.setOutputProperty(OutputKeys.INDENT, "yes");
+        Writer out = new StringWriter();
+        tf.transform(new DOMSource(xml), new StreamResult(out));
+        return out.toString();
     }
 
 

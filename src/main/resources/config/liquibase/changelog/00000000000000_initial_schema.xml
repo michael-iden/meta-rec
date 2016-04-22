@@ -195,6 +195,12 @@
             <column name="criteria" type="varchar(255)"/>
         </createTable>
 
+        <createTable tableName="client">
+            <column name="client_identifier" type="varchar(255)" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
 
 
     </changeSet>

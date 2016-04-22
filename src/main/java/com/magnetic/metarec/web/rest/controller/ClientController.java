@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,9 @@ public class ClientController {
 
     @RequestMapping
     public List<String> getClients() {
-        return clientService.getClientsActiveOnWebrec();
+        List<String> clientIdentifiers = new ArrayList<>();
+        clientService.getClientsActiveOnWebRecLocal().forEach(client -> clientIdentifiers.add(client.getClientIdentifier()));
 
+        return clientIdentifiers;
     }
 }

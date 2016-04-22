@@ -1,24 +1,17 @@
 package com.magnetic.metarec.service;
 
 import com.magnetic.metarec.domain.WebRecSimulation;
-import com.magnetic.metarec.repository.WebRecSimulationRepository;
-
 import com.magnetic.metarec.domain.reporting.ResponseParameters;
 import com.magnetic.metarec.repository.ResponseParameterRepository;
 import com.magnetic.metarec.repository.WebRecSimulationRepository;
 import com.magnetic.metarec.service.util.RecFetcher;
 import com.magnetic.metarec.service.util.UrlUtil;
-
-
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-
-import javax.inject.Inject;
 import javax.inject.Inject;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
@@ -28,7 +21,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-import java.io.File;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URI;
@@ -38,7 +30,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 
 /**
@@ -54,20 +45,13 @@ public class RecommendationService {
     @Inject
     WebRecSimulationRepository webRecSimulationRepository;
 
-
-
     private ExecutorService taskExecutor;
-
-
 
     public void getRecommendations(WebRecSimulation request) {
 
 
-       webRecSimulationRepository.save(request);
+        webRecSimulationRepository.save(request);
         int jobId = request.getId();
-
-
-
 
         try {
 

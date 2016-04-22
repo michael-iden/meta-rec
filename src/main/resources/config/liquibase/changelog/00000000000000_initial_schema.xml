@@ -169,7 +169,7 @@
             <column name="client_identifier" type="varchar(255)"/>
             <column name="page_type" type="varchar(255)"/>
             <column name="zone_id" type="int"/>
-            <column name="product_id" type="int"/>
+            <column name="product_id" type="varchar(255)"/>
             <column name="consumer_id" type="varchar(255)"/>
             <column name="brand_name" type="varchar(255)"/>
             <column name="number_of_queries" type="int"/>

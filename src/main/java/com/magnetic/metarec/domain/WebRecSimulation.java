@@ -30,7 +30,7 @@ public class WebRecSimulation {
     private Integer zoneId;
 
     @Column(name = "product_id")
-    private Integer productId;
+    private String productId;
 
     @Transient
     private List<String> productsInPage;
@@ -74,11 +74,11 @@ public class WebRecSimulation {
         this.clientIdentifier = clientIdentifier;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

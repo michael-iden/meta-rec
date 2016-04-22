@@ -6,10 +6,12 @@
         <ui-select-match placeholder="{{ clientSelectPlaceholder }}">
             <span ng-bind="$select.selected"></span>
         </ui-select-match>
+        <br>
         <ui-select-choices repeat="client in (clients | filter: $select.search)" refresh="refreshClients($select.search)">
             <span ng-bind="client"></span>
         </ui-select-choices>
     </ui-select>
+    <br>
 
     <div ng-if="simulationParams.clientIdentifier">
         <span class="input-label">Page Type:</span>
@@ -19,6 +21,7 @@
                 <label class="radio-label">{{ pageTypeEntry.displayName.toUpperCase() }}</label>
             </div>
         </div>
+        <br>
     </div>
 
     <div ng-if="simulationParams.pageType">
@@ -29,6 +32,7 @@
                 <label class="radio-label">{{ zone }}</label>
             </div>
         </div>
+        <br>
     </div>
 
     <div ng-if="simulationParams.zoneId">
@@ -37,7 +41,7 @@
         <input placeholder="PIPs" type="text" class="form-control space" ng-model="pips" ng-change="pipsToArray()"/>
         <input placeholder="Consumer ID" type="text" class="form-control space" ng-model="simulationParams.consumerId"/>
         <input placeholder="Brand Name" type="text" class="form-control space" ng-model="simulationParams.brandName"/>
-        <input placeholder="Calls for WebRecs" type="text" class="form-control space" ng-model="simulationParams.numberOfQueries"/>
+        <input placeholder="Number of simulations" type="text" class="form-control space" ng-model="simulationParams.numberOfQueries"/>
         <button type="button" class="btn btn-primary" ng-click="submitSimulation()">
             Run Simulation
         </button>

@@ -60,6 +60,40 @@ public class WebRecSimulatorController {
         return recipesFreq;
     }
 
+    @RequestMapping(value = "/{id}/criteriaData", method = RequestMethod.GET)
+    public Map<String, Integer> getCriteria(@PathVariable("id") Integer id) {
+
+        List<ResponseParameters> parametersList = recommendationService.getResponseParameters(id);
+        Map<String, Integer> criteriaFreq = new HashMap<>();
+        for(ResponseParameters response : parametersList) {
+            String criteriaId = response.getCriteria();
+            if(!criteriaFreq.containsKey(criteriaId)) {
+                criteriaFreq.put(criteriaId, 0);
+            }
+            criteriaFreq.put(criteriaId, criteriaFreq.get(criteriaId)+1);
+        }
+
+        return criteriaFreq;
+    }
+
+    @RequestMapping(value = "/{id}/categoryData", method = RequestMethod.GET)
+    public Map<String, Integer> getClientCategory(@PathVariable("id") Integer id) {
+
+        List<ResponseParameters> parametersList = recommendationService.getResponseParameters(id);
+        Map<String, Integer> categoryFreq = new HashMap<>();
+        for(ResponseParameters response : parametersList) {
+            String categoryId = response.getCustomerCategory();
+            if(!categoryFreq.containsKey(categoryId)) {
+                categoryFreq.put(categoryId, 0);
+            }
+            categoryFreq.put(categoryId, categoryFreq.get(categoryId)+1);
+        }
+
+        return categoryFreq;
+    }
+
+
+
 
 //
 //    @RequestMapping(value = "topRecipes/{simulationId}")

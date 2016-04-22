@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -48,7 +49,7 @@ public class WebRecSimulatorController {
     public Map<String, Integer> getRecipe(@PathVariable("id") Integer id) {
 
         List<ResponseParameters> parametersList = recommendationService.getResponseParameters(id);
-        Map<String, Integer> recipesFreq = new HashMap<>();
+        Map<String, Integer> recipesFreq = new TreeMap<>();
         for(ResponseParameters response : parametersList) {
             String recipeId = response.getRecipeId();
             if(!recipesFreq.containsKey(recipeId)) {
@@ -64,7 +65,7 @@ public class WebRecSimulatorController {
     public Map<String, Integer> getCriteria(@PathVariable("id") Integer id) {
 
         List<ResponseParameters> parametersList = recommendationService.getResponseParameters(id);
-        Map<String, Integer> criteriaFreq = new HashMap<>();
+        Map<String, Integer> criteriaFreq = new TreeMap<>();
         for(ResponseParameters response : parametersList) {
             String criteriaId = response.getCriteria();
             if(!criteriaFreq.containsKey(criteriaId)) {
@@ -80,7 +81,7 @@ public class WebRecSimulatorController {
     public Map<String, Integer> getClientCategory(@PathVariable("id") Integer id) {
 
         List<ResponseParameters> parametersList = recommendationService.getResponseParameters(id);
-        Map<String, Integer> categoryFreq = new HashMap<>();
+        Map<String, Integer> categoryFreq = new TreeMap<>();
         for(ResponseParameters response : parametersList) {
             String categoryId = response.getCustomerCategory();
             if(!categoryFreq.containsKey(categoryId)) {
@@ -90,6 +91,22 @@ public class WebRecSimulatorController {
         }
 
         return categoryFreq;
+    }
+
+    @RequestMapping(value = "/{id}/productData", method = RequestMethod.GET)
+    public Map<String, Integer> getProduct(@PathVariable("id") Integer id) {
+
+        List<ResponseParameters> parametersList = recommendationService.getResponseParameters(id);
+        Map<String, Integer> productFreq = new LinkedHashMap<>();
+        for(ResponseParameters response : parametersList) {
+            String categoryId = response.getProductKey();
+            if(!productFreq.containsKey(categoryId)) {
+                productFreq.put(categoryId, 0);
+            }
+            productFreq.put(categoryId, productFreq.get(categoryId)+1);
+        }
+
+        return productFreq;
     }
 
 

@@ -25,11 +25,14 @@
             </ui-select>
         </div>
         <div ng-if="selected.simulation">
+            <br>
             <div class="chart">
-                <chartist class="ct-chart ct-golden-section" chartist-data="recipes" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>
+                <chartist class="ct-chart ct-golden-section" chartist-data="criteria" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>
+                <div class="chart-label">Criteria</div>
             </div>
             <div class="chart">
-                <chartist class="ct-chart ct-golden-section" chartist-data="barData" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>
+                <chartist class="ct-chart ct-golden-section" chartist-data="products" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>
+                <div class="chart-label">Products</div>
             </div>
         </div>
         <!--<chartist class="ct-chart ct-golden-section" chartist-data="barData" chartist-chart-type="Bar" chartist-chart-options="barOptions"></chartist>-->

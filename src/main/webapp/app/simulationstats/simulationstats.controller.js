@@ -43,14 +43,34 @@
             $http.get('/' + $scope.selected.clientIdentifier + '/webRecSimulations/' + $scope.selected.simulation.id + "/recipeData").success(function (data) {
                 console.log(data);
             });
-        };
 
+            $http.get('/' + $scope.selected.clientIdentifier + '/webRecSimulations/' + $scope.selected.simulation.id + "/criteriaData").success(function (data) {
+                var keys = [];
+                var values = [];
+                for(var k in data) {
+                    keys.push(k);
+                    values.push(data[k]);
+                }
 
-        $scope.recipes = {
-            labels: ['Rec1', 'Rec2', 'Rec3', 'Rec4', 'Rec5'],
-            series: [
-                [500, 400, 300, 700, 500]
-            ]
+                $scope.criteria = {
+                    labels: keys,
+                    series: [values]
+                };
+            });
+
+            $http.get('/' + $scope.selected.clientIdentifier + '/webRecSimulations/' + $scope.selected.simulation.id + "/productData").success(function (data) {
+                var keys = [];
+                var values = [];
+                for(var k in data) {
+                    keys.push(k);
+                    values.push(data[k]);
+                }
+
+                $scope.products = {
+                    labels: keys,
+                    series: [values]
+                };
+            });
         };
 
         $scope.barData = {

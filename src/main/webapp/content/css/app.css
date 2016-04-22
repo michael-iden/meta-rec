@@ -13,7 +13,14 @@
 
 .chart {
     height: 250px;
+    width: 545px;
+    display: inline-block;
+}
+
+.chart-img {
+    height: 250px;
     width: 400px;
+    display: inline-block;
 }
 
 .subtext {
@@ -40,4 +47,11 @@
 
 .space {
     margin-bottom: 5px;
+}
+
+.chart-label {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-left: 15px;
 }
